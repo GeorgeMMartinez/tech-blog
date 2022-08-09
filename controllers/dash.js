@@ -2,7 +2,7 @@ const router = require('express').Router()
 const { Post, User } = require('../models/')
 const admin = require('../utils/admin.js')
 
-router.get('/', gateKeeper, async (req, res) => {
+router.get('/', admin, async (req, res) => {
   try {
     const postData = await Post.findAll({
       where: { "userId": req.session.userId },
