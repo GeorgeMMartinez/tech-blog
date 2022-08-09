@@ -1,6 +1,6 @@
 const router = require('express').Router();
 const { Post, Comment, User } = require('../models/');
-const gateKeeper = require('../utils/gatekeeper.js');
+const admin = require('../utils/admin.js');
 
 router.get('/', async (req, res) => {
   try {
@@ -12,9 +12,9 @@ router.get('/', async (req, res) => {
   } catch (err) {
     res.status(500).json(err)
   }
-})
+});
 
-router.get('/post/:id', gateKeeper, async (req, res) => {
+router.get('/post/:id', admin, async (req, res) => {
   try {
     const postData = await Post.findOne({
       where: { id: req.params.id },
@@ -36,7 +36,7 @@ router.get('/post/:id', gateKeeper, async (req, res) => {
   } catch (err) {
     res.status(500).json(err)
   }
-})
+});
 
 router.get('/login', (req, res) => {
   if (req.session.loggedIn) {
@@ -52,6 +52,6 @@ router.get('/signup', (req, res) => {
     return
   }
   res.render('signup')
-})
+});
 
-module.exports = router
+module.exports = router;
